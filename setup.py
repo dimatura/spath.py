@@ -29,7 +29,8 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Daniel Maturana",
     author_email='dimatura@cmu.edu',
-    url='https://github.com/dimatura/spath',
+    url='https://github.com/dimatura/spath.py',
+    download_url = 'https://github.com/dimatura/spath.py/tarball/0.1.0.zip',
     packages=[
         'spath',
     ],
