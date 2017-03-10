@@ -25,8 +25,10 @@ except ImportError:
 
 try:
     import cv2
+    cv2_IMREAD_UNCHANGED = cv2.IMREAD_UNCHANGED
 except ImportError:
     cv2 = None
+    cv2_IMREAD_UNCHANGED = -1L
 
 import humanize
 
@@ -104,7 +106,7 @@ class Path(path.Path):
         return Image.open(self, **kwargs)
 
 
-    def read_cv2(self, to_rgb=True, flags=cv2.IMREAD_UNCHANGED):
+    def read_cv2(self, to_rgb=True, flags=cv2_IMREAD_UNCHANGED):
         if cv2 is None:
             raise NotImplementedError('cv2 is not available')
         img = cv2.imread(self, flags)
