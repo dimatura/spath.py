@@ -24,13 +24,13 @@ test_requirements = [
 
 setup(
     name='spath',
-    version='0.1.3',
+    version='0.1.4',
     description="Extras for path.py",
     long_description=readme + '\n\n' + history,
     author="Daniel Maturana",
     author_email='dimatura@cmu.edu',
     url='https://github.com/dimatura/spath.py',
-    download_url = 'https://github.com/dimatura/spath.py/tarball/0.1.3.zip',
+    download_url = 'https://github.com/dimatura/spath.py/tarball/0.1.4.zip',
     packages=[
         'spath',
     ],
