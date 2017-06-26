@@ -63,29 +63,18 @@ class Path(path.Path):
             return f.read()
 
 
-    def write_json(self, obj, append=False):
-        """ Read contents of file as JSON.
+    def read_json(self, *args, **kwargs):
+        """ Write contents of file as JSON.
         """
-        if append:
-            mode = 'ab'
-        else:
-            mode = 'wb'
-
-        with self.open(mode) as f:
-            return json.dump(obj, f)
-
-
-    def write_pickle(self, obj, append=False):
-        if append:
-            mode = 'ab'
-        else:
-            mode = 'wb'
-
-        with self.open(mode) as f:
-            return pickle.dump(obj, f)
-
         with self.open('rb') as f:
-            return json.load(f)
+            return json.load(f, *args, **kwargs)
+
+
+    def write_json(self, obj, mode='wb', **kwargs):
+        """ Write contents of file as JSON.
+        """
+        with self.open(mode) as f:
+            return json.dump(obj, f, **kwargs)
 
 
     def read_pickle(self):
@@ -93,11 +82,30 @@ class Path(path.Path):
             return pickle.load(f)
 
 
+    def write_pickle(self, obj, mode='wb', **kwargs):
+        """ Write contents of file as pickle.
+        """
+        with self.open(mode) as f:
+            return pickle.dump(obj, f, **kwargs)
+
+
     def read_numpy(self, **kwargs):
         if np is None:
             raise NotImplementedError('numpy not available')
         with self.open('rb') as f:
-            return np.load(f)
+            return np.load(f, **kwargs)
+
+
+    def write_npz_compressed(self, *args, **kwargs):
+        if np is None:
+            raise NotImplementedError('numpy not available')
+        np.savez_compressed(str(self), *args, **kwargs)
+
+
+    def write_npz(self, *args, **kwargs):
+        if np is None:
+            raise NotImplementedError('numpy not available')
+        np.savez(str(self), *args, **kwargs)
 
 
     def read_pil(self, **kwargs):
@@ -106,13 +114,27 @@ class Path(path.Path):
         return Image.open(self, **kwargs)
 
 
-    def read_cv2(self, to_rgb=True, flags=cv2_IMREAD_UNCHANGED):
+    def write_pil(self, img, **kwargs):
+        if Image is None:
+            raise NotImplementedError('PIL.Image is not available')
+        if not isinstance(img, Image.Image):
+            raise ValueError('img is not a PIL Image')
+        img.save(str(self), **kwargs)
+
+
+    def read_cv2(self, to_rgb=False, flags=cv2_IMREAD_UNCHANGED):
         if cv2 is None:
             raise NotImplementedError('cv2 is not available')
         img = cv2.imread(self, flags)
-        if to_rgb and img.ndim==3:
+        if to_rgb and (img is not None) and img.ndim==3:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         return img
+
+
+    def write_cv2(self, img, params=[]):
+        if cv2 is None:
+            raise NotImplementedError('cv2 is not available')
+        return cv.imwrite(str(self), img, params)
 
 
     def read_pandas_csv(self, **kwargs):
