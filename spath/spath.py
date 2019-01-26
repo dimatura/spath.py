@@ -28,7 +28,7 @@ try:
     cv2_IMREAD_UNCHANGED = cv2.IMREAD_UNCHANGED
 except ImportError:
     cv2 = None
-    cv2_IMREAD_UNCHANGED = -1L
+    cv2_IMREAD_UNCHANGED = -1
 
 import humanize
 

@@ -3,6 +3,8 @@
 
 from setuptools import setup
 
+version = '0.1.5'
+
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
@@ -24,13 +26,13 @@ test_requirements = [
 
 setup(
     name='spath',
-    version='0.1.4',
+    version=version,
     description="Extras for path.py",
     long_description=readme + '\n\n' + history,
     author="Daniel Maturana",
     author_email='dimatura@cmu.edu',
     url='https://github.com/dimatura/spath.py',
-    download_url = 'https://github.com/dimatura/spath.py/tarball/0.1.4.zip',
+    download_url = 'https://github.com/dimatura/spath.py/tarball/%d.zip' % version,
     packages=[
         'spath',
     ],
