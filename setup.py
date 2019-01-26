@@ -32,7 +32,7 @@ setup(
     author="Daniel Maturana",
     author_email='dimatura@cmu.edu',
     url='https://github.com/dimatura/spath.py',
-    download_url = 'https://github.com/dimatura/spath.py/tarball/%d.zip' % version,
+    download_url = 'https://github.com/dimatura/spath.py/tarball/%s.zip' % version,
     packages=[
         'spath',
     ],
